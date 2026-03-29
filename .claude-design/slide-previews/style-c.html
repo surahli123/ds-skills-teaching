@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style C: Electric Studio — Skills for DS</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<noscript>
+    <style>.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }</style>
+</noscript>
+<style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES (ELECTRIC STUDIO)
+       Split panel, electric blue accent, Manrope + DM Sans
+       =========================================== */
+    :root {
+        --bg-dark: #0a0a0a;
+        --bg-white: #ffffff;
+        --bg-off-white: #f5f5f0;
+        --accent-blue: #4361ee;
+        --accent-blue-light: rgba(67, 97, 238, 0.1);
+        --accent-blue-glow: rgba(67, 97, 238, 0.3);
+        --text-dark: #0a0a0a;
+        --text-light: #ffffff;
+        --text-secondary-dark: #555;
+        --text-secondary-light: #aaa;
+        --text-muted: #888;
+        --border-dark: #222;
+
+        --font-display: 'Manrope', 'Helvetica Neue', sans-serif;
+        --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+
+        --title-size: clamp(1.8rem, 5vw, 4rem);
+        --h2-size: clamp(1.4rem, 3.5vw, 2.8rem);
+        --h3-size: clamp(1rem, 2vw, 1.4rem);
+        --body-size: clamp(0.75rem, 1.3vw, 1.05rem);
+        --small-size: clamp(0.65rem, 0.95vw, 0.85rem);
+        --label-size: clamp(0.6rem, 0.9vw, 0.78rem);
+
+        --slide-padding: clamp(1.5rem, 5vw, 5rem);
+        --content-gap: clamp(0.5rem, 1.5vw, 1.5rem);
+
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration-normal: 0.6s;
+    }
+
+    /* ===========================================
+       BASE + VIEWPORT (mandatory)
+       =========================================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow-x: hidden; background: var(--bg-dark); }
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+
+    .slide {
+        width: 100vw; height: 100vh; height: 100dvh;
+        overflow: hidden; scroll-snap-align: start;
+        display: flex;
+        position: relative;
+        font-family: var(--font-body);
+    }
+
+    /* --- RESPONSIVE BREAKPOINTS --- */
+    @media (max-height: 700px) {
+        :root {
+            --slide-padding: clamp(0.75rem, 3vw, 2rem);
+            --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+            --title-size: clamp(1.4rem, 4.5vw, 2.5rem);
+            --h2-size: clamp(1.1rem, 3vw, 1.75rem);
+        }
+    }
+    @media (max-height: 600px) {
+        :root {
+            --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+            --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+            --title-size: clamp(1.1rem, 4vw, 2rem);
+            --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+        }
+        .nav-dots, .keyboard-hint { display: none; }
+    }
+    @media (max-height: 500px) {
+        :root {
+            --slide-padding: clamp(0.4rem, 2vw, 1rem);
+            --title-size: clamp(1rem, 3.5vw, 1.5rem);
+            --body-size: clamp(0.65rem, 1vw, 0.85rem);
+        }
+    }
+    @media (max-width: 600px) {
+        :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+        .split-slide { flex-direction: column; }
+        .split-top, .split-bottom { width: 100%; }
+        .split-top { height: 45%; }
+        .split-bottom { height: 55%; }
+        .two-col { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+        html { scroll-behavior: auto; }
+    }
+
+    /* ===========================================
+       ELECTRIC STUDIO: SPLIT-PANEL LAYOUT
+       =========================================== */
+
+    /* Default: horizontal split (white top, blue bottom) */
+    .split-slide {
+        display: flex; flex-direction: column;
+    }
+    .split-top {
+        flex: 1;
+        background: var(--bg-white);
+        display: flex; flex-direction: column;
+        justify-content: center;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+    .split-bottom {
+        flex: 1;
+        background: var(--accent-blue);
+        display: flex; flex-direction: column;
+        justify-content: center;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+
+    /* Accent bar between panels */
+    .panel-divider {
+        width: 100%;
+        height: clamp(3px, 0.4vh, 6px);
+        background: var(--accent-blue);
+        position: relative; z-index: 2;
+    }
+
+    /* Full-panel slides (dark bg) */
+    .full-dark {
+        flex-direction: column;
+        background: var(--bg-dark);
+    }
+    .full-dark .slide-content {
+        flex: 1; display: flex; flex-direction: column;
+        justify-content: center;
+        max-height: 100%; overflow: hidden;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+
+    /* Full white panel */
+    .full-white {
+        flex-direction: column;
+        background: var(--bg-white);
+    }
+    .full-white .slide-content {
+        flex: 1; display: flex; flex-direction: column;
+        justify-content: center;
+        max-height: 100%; overflow: hidden;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+
+    /* Corner brand mark */
+    .brand-mark {
+        position: absolute;
+        top: clamp(1rem, 2vw, 2rem);
+        right: clamp(1rem, 2vw, 2rem);
+        width: clamp(30px, 4vw, 50px);
+        height: clamp(30px, 4vw, 50px);
+        border: clamp(2px, 0.3vw, 4px) solid var(--accent-blue);
+        border-radius: 50%;
+        z-index: 3;
+    }
+    .full-dark .brand-mark { border-color: var(--accent-blue); }
+    .full-white .brand-mark { border-color: var(--accent-blue); }
+
+    /* Slide numbering */
+    .slide-number {
+        position: absolute;
+        bottom: clamp(1rem, 2vh, 2rem);
+        left: clamp(3rem, 8vw, 8rem);
+        font-family: var(--font-display);
+        font-size: var(--small-size);
+        font-weight: 700;
+        z-index: 2;
+    }
+    .slide-meta {
+        position: absolute;
+        bottom: clamp(1rem, 2vh, 2rem);
+        right: clamp(2rem, 5vw, 5rem);
+        font-size: var(--label-size);
+        font-weight: 500;
+        z-index: 2;
+    }
+    /* Adapt number color to panel bg */
+    .split-slide .slide-number,
+    .split-slide .slide-meta { color: var(--text-light); }
+    .full-dark .slide-number,
+    .full-dark .slide-meta { color: var(--text-muted); }
+    .full-white .slide-number,
+    .full-white .slide-meta { color: var(--text-muted); }
+
+    /* ===========================================
+       TYPOGRAPHY
+       =========================================== */
+    .label {
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--accent-blue);
+        margin-bottom: clamp(0.4rem, 1vh, 1rem);
+        font-weight: 800;
+    }
+    .label-light { color: rgba(255, 255, 255, 0.7); }
+
+    h1 {
+        font-family: var(--font-display);
+        font-size: var(--title-size);
+        font-weight: 800;
+        line-height: 1.05;
+        margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    .split-top h1 { color: var(--text-dark); }
+    .full-dark h1 { color: var(--text-light); }
+
+    h2 {
+        font-family: var(--font-display);
+        font-size: var(--h2-size);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    .full-dark h2 { color: var(--text-light); }
+    .full-white h2 { color: var(--text-dark); }
+
+    h3 {
+        font-family: var(--font-display);
+        font-size: var(--h3-size);
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: clamp(0.3rem, 0.8vh, 0.6rem);
+    }
+
+    p, li { font-size: var(--body-size); line-height: 1.6; }
+    .full-dark p, .full-dark li { color: var(--text-secondary-light); }
+    .full-white p, .full-white li { color: var(--text-secondary-dark); }
+
+    .subtitle {
+        font-size: clamp(0.85rem, 1.6vw, 1.2rem);
+        font-weight: 400; line-height: 1.5;
+    }
+    .split-bottom .subtitle { color: rgba(255, 255, 255, 0.85); }
+
+    /* ===========================================
+       CONTENT PATTERNS
+       =========================================== */
+    .two-col {
+        display: flex; gap: clamp(1.5rem, 4vw, 4rem);
+        align-items: flex-start;
+        margin-top: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    .two-col > div { flex: 1; }
+
+    .compare-box {
+        padding: clamp(0.6rem, 1.2vw, 1.2rem);
+        border-left: clamp(3px, 0.3vw, 5px) solid var(--accent-blue);
+        background: var(--accent-blue-light);
+        margin-bottom: clamp(0.4rem, 0.8vh, 0.8rem);
+    }
+    .full-dark .compare-box {
+        background: rgba(67, 97, 238, 0.1);
+        border-color: var(--accent-blue);
+    }
+    .compare-box h3 { color: var(--accent-blue); }
+    .full-dark .compare-box h3 { color: var(--accent-blue); }
+
+    .bullet-list {
+        list-style: none; display: flex; flex-direction: column;
+        gap: clamp(0.3rem, 0.8vh, 0.8rem);
+    }
+    .bullet-list li { padding-left: clamp(1rem, 2vw, 1.5rem); position: relative; }
+    .bullet-list li::before {
+        content: ''; position: absolute; left: 0;
+        top: clamp(0.4rem, 0.7vh, 0.55rem);
+        width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px);
+        background: var(--accent-blue);
+        border-radius: 50%;
+    }
+
+    /* Folder anatomy — card style */
+    .folder-tree {
+        font-family: var(--font-body);
+        font-size: var(--body-size);
+        background: var(--accent-blue-light);
+        border-left: clamp(3px, 0.3vw, 5px) solid var(--accent-blue);
+        padding: clamp(0.8rem, 1.5vw, 1.5rem);
+        margin-top: clamp(0.5rem, 1vh, 1rem);
+        line-height: 1.8;
+    }
+    .full-dark .folder-tree {
+        background: rgba(67, 97, 238, 0.08);
+    }
+    .folder-tree .file { color: var(--accent-blue); font-weight: 700; }
+    .full-white .folder-tree .desc { color: var(--text-muted); font-style: italic; }
+    .full-dark .folder-tree .desc { color: var(--text-secondary-light); font-style: italic; }
+
+    /* Blue pill badge */
+    .badge {
+        display: inline-block;
+        padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.5rem, 1vw, 0.8rem);
+        background: var(--accent-blue);
+        color: var(--text-light);
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        font-weight: 700;
+        border-radius: 100px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    /* ===========================================
+       ANIMATIONS
+       =========================================== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(25px);
+        transition: opacity var(--duration-normal) var(--ease-out-expo),
+                    transform var(--duration-normal) var(--ease-out-expo);
+    }
+    .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+    .reveal:nth-child(1) { transition-delay: 0.1s; }
+    .reveal:nth-child(2) { transition-delay: 0.2s; }
+    .reveal:nth-child(3) { transition-delay: 0.3s; }
+    .reveal:nth-child(4) { transition-delay: 0.4s; }
+    .reveal:nth-child(5) { transition-delay: 0.5s; }
+
+    /* Panel slide-in on title slide */
+    .slide-in-bottom {
+        opacity: 0;
+        transform: translateY(60px);
+        transition: opacity 0.8s var(--ease-out-expo),
+                    transform 0.8s var(--ease-out-expo);
+        transition-delay: 0.3s;
+    }
+    .slide.visible .slide-in-bottom {
+        opacity: 1; transform: translateY(0);
+    }
+
+    /* ===========================================
+       PROGRESS BAR
+       =========================================== */
+    .progress-bar {
+        position: fixed; top: 0; left: 0;
+        height: 3px; background: var(--accent-blue);
+        z-index: 9999; transition: width 0.3s ease;
+        width: 0%;
+    }
+
+    /* ===========================================
+       NAV DOTS
+       =========================================== */
+    .nav-dots {
+        position: fixed; right: clamp(1rem, 2vw, 2rem);
+        top: 50%; transform: translateY(-50%);
+        display: flex; flex-direction: column;
+        gap: clamp(6px, 1vh, 12px); z-index: 9999;
+    }
+    .nav-dot {
+        width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px);
+        border-radius: 50%; border: 2px solid var(--accent-blue);
+        background: transparent; cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .nav-dot.active {
+        background: var(--accent-blue);
+        box-shadow: 0 0 8px var(--accent-blue-glow);
+    }
+</style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- ===========================================
+         SLIDE 1: TITLE (Split Panel — white/blue)
+         =========================================== -->
+    <section class="slide split-slide" id="slide-0">
+        <div class="brand-mark"></div>
+        <div class="split-top">
+            <div class="label reveal">Internal Knowledge Share</div>
+            <h1 class="reveal">Why You Re-Explain the Same Thing Every Session</h1>
+        </div>
+        <div class="split-bottom slide-in-bottom">
+            <p class="subtitle reveal">The architectural fix that makes your agent permanently smarter</p>
+            <div style="margin-top: clamp(0.5rem, 1vh, 1rem);">
+                <span class="badge reveal">Skills for DS</span>
+            </div>
+        </div>
+        <div class="slide-number">01</div>
+        <div class="slide-meta">2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2: WHAT IS A SKILL? (Full white)
+         =========================================== -->
+    <section class="slide full-white" id="slide-1">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal">Concept</div>
+            <h2 class="reveal" style="color: var(--text-dark);">What Is a Skill?</h2>
+            <p class="reveal" style="margin-bottom: clamp(0.5rem, 1vh, 1rem);">A persistent knowledge module that gives your agent domain expertise — without burning context.</p>
+            <div class="folder-tree reveal">
+                <span class="file">my-skill/</span><br>
+                &nbsp;&nbsp;├── <span class="file">SKILL.md</span> <span class="desc">— strategic philosophy &amp; decision framework</span><br>
+                &nbsp;&nbsp;├── <span class="file">scripts/</span> <span class="desc">— toolset (Python, Bash, analysis helpers)</span><br>
+                &nbsp;&nbsp;└── <span class="file">references/</span> <span class="desc">— factual grounding (docs, schemas, examples)</span>
+            </div>
+        </div>
+        <div class="slide-number" style="color: var(--text-muted);">02</div>
+        <div class="slide-meta" style="color: var(--text-muted);">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3: SKILLS VS SUBAGENTS (Full dark)
+         =========================================== -->
+    <section class="slide full-dark" id="slide-2">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal" style="color: rgba(67, 97, 238, 0.8);">Comparison</div>
+            <h2 class="reveal">Skills vs SubAgents</h2>
+            <div class="two-col reveal">
+                <div>
+                    <div class="compare-box">
+                        <h3>Skills</h3>
+                    </div>
+                    <ul class="bullet-list">
+                        <li><strong style="color: var(--text-light);">Depth</strong> — deep domain expertise in one area</li>
+                        <li><strong style="color: var(--text-light);">Reusable</strong> — loaded on demand, session after session</li>
+                        <li><strong style="color: var(--text-light);">Persistent knowledge</strong> — survives context resets</li>
+                        <li><strong style="color: var(--text-light);">Runs in-context</strong> — enriches the main agent</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="compare-box">
+                        <h3>SubAgents</h3>
+                    </div>
+                    <ul class="bullet-list">
+                        <li><strong style="color: var(--text-light);">Breadth</strong> — parallel execution across many files</li>
+                        <li><strong style="color: var(--text-light);">One-shot</strong> — spun up, does work, reports back</li>
+                        <li><strong style="color: var(--text-light);">Parallel execution</strong> — independent workers in parallel</li>
+                        <li><strong style="color: var(--text-light);">Isolated context</strong> — protects main agent's window</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">03</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    <script>
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.isScrolling = false;
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = idx;
+                            this.updateProgressBar();
+                            this.updateNavDots();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                        else this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                });
+            }
+
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+                this.updateProgressBar();
+            }
+
+            updateProgressBar() {
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                this.progressBar.style.width = progress + '%';
+            }
+
+            setupNavDots() {
+                const container = document.getElementById('navDots');
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    container.appendChild(dot);
+                });
+            }
+
+            updateNavDots() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            goToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>

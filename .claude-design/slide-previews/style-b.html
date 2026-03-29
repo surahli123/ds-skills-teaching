@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style B: Terminal Green — Skills for DS</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<noscript>
+    <style>.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }</style>
+</noscript>
+<style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES (TERMINAL GREEN)
+       Dark bg, green accent, JetBrains Mono + DM Sans
+       =========================================== */
+    :root {
+        --bg-primary: #0d1117;
+        --bg-slide-alt: #0a0e14;
+        --bg-card: rgba(57, 211, 83, 0.06);
+        --text-primary: #e6edf3;
+        --text-secondary: #8b949e;
+        --text-muted: #484f58;
+        --accent: #39d353;
+        --accent-dim: rgba(57, 211, 83, 0.15);
+        --accent-glow: rgba(57, 211, 83, 0.3);
+        --border: #21262d;
+
+        --font-display: 'JetBrains Mono', 'Courier New', monospace;
+        --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+
+        --title-size: clamp(1.6rem, 4.5vw, 3.5rem);
+        --h2-size: clamp(1.3rem, 3vw, 2.4rem);
+        --h3-size: clamp(0.95rem, 1.8vw, 1.3rem);
+        --body-size: clamp(0.75rem, 1.3vw, 1.05rem);
+        --small-size: clamp(0.65rem, 0.95vw, 0.85rem);
+        --label-size: clamp(0.6rem, 0.85vw, 0.75rem);
+        --mono-size: clamp(0.7rem, 1.1vw, 0.95rem);
+
+        --slide-padding: clamp(1.5rem, 5vw, 5rem);
+        --content-gap: clamp(0.5rem, 1.5vw, 1.5rem);
+
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration-normal: 0.6s;
+    }
+
+    /* ===========================================
+       BASE + VIEWPORT (mandatory)
+       =========================================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow-x: hidden; background: var(--bg-primary); }
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+
+    .slide {
+        width: 100vw; height: 100vh; height: 100dvh;
+        overflow: hidden; scroll-snap-align: start;
+        display: flex; flex-direction: column;
+        position: relative;
+        font-family: var(--font-body);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+    }
+
+    .slide:nth-child(even) { background: var(--bg-slide-alt); }
+
+    .slide-content {
+        flex: 1; display: flex; flex-direction: column;
+        justify-content: center;
+        max-height: 100%; overflow: hidden;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+
+    /* --- RESPONSIVE BREAKPOINTS --- */
+    @media (max-height: 700px) {
+        :root {
+            --slide-padding: clamp(0.75rem, 3vw, 2rem);
+            --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+            --title-size: clamp(1.3rem, 4vw, 2.2rem);
+            --h2-size: clamp(1.1rem, 2.8vw, 1.75rem);
+        }
+    }
+    @media (max-height: 600px) {
+        :root {
+            --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+            --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+            --title-size: clamp(1.1rem, 3.5vw, 1.8rem);
+            --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+        }
+        .nav-dots, .keyboard-hint { display: none; }
+    }
+    @media (max-height: 500px) {
+        :root {
+            --slide-padding: clamp(0.4rem, 2vw, 1rem);
+            --title-size: clamp(1rem, 3vw, 1.5rem);
+            --body-size: clamp(0.65rem, 1vw, 0.85rem);
+        }
+    }
+    @media (max-width: 600px) {
+        :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+        .two-col { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+        html { scroll-behavior: auto; }
+    }
+
+    /* ===========================================
+       TERMINAL GREEN: GLOBAL ELEMENTS
+       =========================================== */
+
+    /* Scan lines overlay */
+    .slide::before {
+        content: ''; position: absolute; inset: 0;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(57, 211, 83, 0.015) 2px,
+            rgba(57, 211, 83, 0.015) 4px
+        );
+        z-index: 0; pointer-events: none;
+    }
+
+    /* Subtle grid */
+    .slide::after {
+        content: ''; position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(57, 211, 83, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(57, 211, 83, 0.03) 1px, transparent 1px);
+        background-size: clamp(30px, 5vw, 60px) clamp(30px, 5vw, 60px);
+        z-index: 0; pointer-events: none;
+    }
+
+    /* Green accent bar — left edge */
+    .accent-bar {
+        position: absolute; left: 0; top: 0;
+        width: clamp(3px, 0.4vw, 6px);
+        height: 100%; background: var(--accent); z-index: 2;
+        box-shadow: 0 0 15px var(--accent-glow), 0 0 30px rgba(57, 211, 83, 0.1);
+    }
+
+    /* Slide numbering */
+    .slide-number {
+        position: absolute;
+        bottom: clamp(1rem, 2vh, 2rem);
+        left: clamp(3rem, 8vw, 8rem);
+        font-family: var(--font-display);
+        font-size: var(--small-size);
+        color: var(--text-muted); z-index: 2;
+    }
+    .slide-meta {
+        position: absolute;
+        bottom: clamp(1rem, 2vh, 2rem);
+        right: clamp(2rem, 5vw, 5rem);
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        color: var(--text-muted); z-index: 2;
+    }
+
+    /* ===========================================
+       TYPOGRAPHY
+       =========================================== */
+    .label {
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        letter-spacing: 0.15em; text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: clamp(0.4rem, 1vh, 1rem);
+        font-weight: 700;
+    }
+    .label::before { content: '> '; opacity: 0.5; }
+
+    h1 {
+        font-family: var(--font-display);
+        font-size: var(--title-size);
+        font-weight: 800; color: var(--text-primary);
+        line-height: 1.15;
+        margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    h1 span {
+        color: var(--accent);
+        text-shadow: 0 0 20px var(--accent-glow);
+    }
+    h2 {
+        font-family: var(--font-display);
+        font-size: var(--h2-size);
+        font-weight: 700; color: var(--text-primary);
+        line-height: 1.15;
+        margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    h3 {
+        font-family: var(--font-display);
+        font-size: var(--h3-size);
+        font-weight: 700; color: var(--accent);
+        line-height: 1.2;
+        margin-bottom: clamp(0.3rem, 0.8vh, 0.6rem);
+    }
+    p, li { font-size: var(--body-size); color: var(--text-secondary); line-height: 1.6; }
+    .subtitle {
+        font-size: clamp(0.85rem, 1.6vw, 1.2rem);
+        color: var(--text-secondary);
+        font-weight: 400; line-height: 1.5;
+    }
+
+    /* Blinking cursor effect on title */
+    .cursor::after {
+        content: '█';
+        color: var(--accent);
+        animation: blink 1s step-end infinite;
+        font-weight: 400;
+    }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    /* ===========================================
+       CONTENT PATTERNS
+       =========================================== */
+    .two-col {
+        display: flex; gap: clamp(1.5rem, 4vw, 4rem);
+        align-items: flex-start;
+        margin-top: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    .two-col > div { flex: 1; }
+
+    .compare-box {
+        padding: clamp(0.6rem, 1.2vw, 1.2rem);
+        border: 1px solid var(--accent);
+        background: var(--bg-card);
+        margin-bottom: clamp(0.4rem, 0.8vh, 0.8rem);
+        position: relative;
+    }
+    .compare-box::before {
+        content: '';
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 2px;
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .bullet-list {
+        list-style: none; display: flex; flex-direction: column;
+        gap: clamp(0.3rem, 0.8vh, 0.8rem);
+    }
+    .bullet-list li {
+        padding-left: clamp(1.2rem, 2vw, 1.5rem); position: relative;
+        font-family: var(--font-body);
+    }
+    .bullet-list li::before {
+        content: '→';
+        position: absolute; left: 0;
+        color: var(--accent); font-family: var(--font-display);
+        font-size: var(--body-size);
+    }
+
+    /* Folder anatomy — terminal-style */
+    .folder-tree {
+        font-family: var(--font-display);
+        font-size: var(--mono-size);
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: clamp(0.8rem, 1.5vw, 1.5rem);
+        margin-top: clamp(0.5rem, 1vh, 1rem);
+        line-height: 2;
+        position: relative;
+    }
+    /* Terminal title bar dots */
+    .folder-tree::before {
+        content: '● ● ●';
+        display: block;
+        font-size: clamp(0.5rem, 0.7vw, 0.65rem);
+        letter-spacing: 4px;
+        color: var(--text-muted);
+        margin-bottom: clamp(0.4rem, 0.8vh, 0.8rem);
+        padding-bottom: clamp(0.3rem, 0.6vh, 0.6rem);
+        border-bottom: 1px solid var(--border);
+    }
+    .folder-tree .file { color: var(--accent); font-weight: 700; }
+    .folder-tree .desc { color: var(--text-muted); font-weight: 400; }
+    .folder-tree .tree-char { color: var(--text-muted); }
+
+    /* ===========================================
+       ANIMATIONS
+       =========================================== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity var(--duration-normal) var(--ease-out-expo),
+                    transform var(--duration-normal) var(--ease-out-expo);
+    }
+    .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+    .reveal:nth-child(1) { transition-delay: 0.1s; }
+    .reveal:nth-child(2) { transition-delay: 0.2s; }
+    .reveal:nth-child(3) { transition-delay: 0.3s; }
+    .reveal:nth-child(4) { transition-delay: 0.4s; }
+
+    /* ===========================================
+       PROGRESS BAR
+       =========================================== */
+    .progress-bar {
+        position: fixed; top: 0; left: 0;
+        height: 2px; background: var(--accent);
+        box-shadow: 0 0 10px var(--accent-glow);
+        z-index: 9999; transition: width 0.3s ease;
+        width: 0%;
+    }
+
+    /* ===========================================
+       NAV DOTS
+       =========================================== */
+    .nav-dots {
+        position: fixed; right: clamp(1rem, 2vw, 2rem);
+        top: 50%; transform: translateY(-50%);
+        display: flex; flex-direction: column;
+        gap: clamp(6px, 1vh, 12px); z-index: 9999;
+    }
+    .nav-dot {
+        width: clamp(6px, 0.8vw, 10px); height: clamp(6px, 0.8vw, 10px);
+        border-radius: 50%; border: 1.5px solid var(--accent);
+        background: transparent; cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .nav-dot.active {
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent-glow);
+    }
+</style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- ===========================================
+         SLIDE 1: TITLE
+         =========================================== -->
+    <section class="slide" id="slide-0">
+        <div class="accent-bar"></div>
+        <div class="slide-content">
+            <div class="label reveal">knowledge_share.init()</div>
+            <h1 class="reveal">Why You Re-Explain the <span>Same Thing</span> Every Session<span class="cursor"></span></h1>
+            <p class="subtitle reveal">The architectural fix that makes your agent permanently smarter</p>
+        </div>
+        <div class="slide-number">01 / 03</div>
+        <div class="slide-meta">$ skills --teach</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2: WHAT IS A SKILL?
+         =========================================== -->
+    <section class="slide" id="slide-1">
+        <div class="accent-bar"></div>
+        <div class="slide-content">
+            <div class="label reveal">ls -la ~/.claude/skills/</div>
+            <h2 class="reveal">What Is a Skill?</h2>
+            <p class="reveal" style="margin-bottom: clamp(0.5rem, 1vh, 1rem);">A persistent knowledge module that gives your agent domain expertise — without burning context.</p>
+            <div class="folder-tree reveal">
+                <span class="tree-char">📁</span> <span class="file">my-skill/</span><br>
+                <span class="tree-char">&nbsp;&nbsp;├──</span> <span class="file">SKILL.md</span> <span class="desc"># strategic philosophy &amp; decision framework</span><br>
+                <span class="tree-char">&nbsp;&nbsp;├──</span> <span class="file">scripts/</span> <span class="desc"># toolset (Python, Bash, analysis helpers)</span><br>
+                <span class="tree-char">&nbsp;&nbsp;└──</span> <span class="file">references/</span> <span class="desc"># factual grounding (docs, schemas, examples)</span>
+            </div>
+        </div>
+        <div class="slide-number">02 / 03</div>
+        <div class="slide-meta">$ skills --teach</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3: SKILLS VS SUBAGENTS
+         =========================================== -->
+    <section class="slide" id="slide-2">
+        <div class="accent-bar"></div>
+        <div class="slide-content">
+            <div class="label reveal">diff skills subagents</div>
+            <h2 class="reveal">Skills vs SubAgents</h2>
+            <div class="two-col reveal">
+                <div>
+                    <div class="compare-box">
+                        <h3>// Skills</h3>
+                    </div>
+                    <ul class="bullet-list">
+                        <li><strong>Depth</strong> — deep domain expertise in one area</li>
+                        <li><strong>Reusable</strong> — loaded on demand, session after session</li>
+                        <li><strong>Persistent knowledge</strong> — survives context resets</li>
+                        <li><strong>Runs in-context</strong> — enriches the main agent</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="compare-box">
+                        <h3>// SubAgents</h3>
+                    </div>
+                    <ul class="bullet-list">
+                        <li><strong>Breadth</strong> — parallel execution across many files</li>
+                        <li><strong>One-shot</strong> — spun up, does work, reports back</li>
+                        <li><strong>Parallel execution</strong> — independent workers in parallel</li>
+                        <li><strong>Isolated context</strong> — protects main agent's window</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">03 / 03</div>
+        <div class="slide-meta">$ skills --teach</div>
+    </section>
+
+    <script>
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.isScrolling = false;
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = idx;
+                            this.updateProgressBar();
+                            this.updateNavDots();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                        else this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                });
+            }
+
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+                this.updateProgressBar();
+            }
+
+            updateProgressBar() {
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                this.progressBar.style.width = progress + '%';
+            }
+
+            setupNavDots() {
+                const container = document.getElementById('navDots');
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    container.appendChild(dot);
+                });
+            }
+
+            updateNavDots() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            goToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>

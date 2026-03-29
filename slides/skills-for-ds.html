@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills for Data Scientists — Why You Re-Explain the Same Thing Every Session</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<noscript>
+    <style>.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }</style>
+</noscript>
+<style>
+    /* ===========================================
+       CSS CUSTOM PROPERTIES (ELECTRIC STUDIO)
+       Split panel, electric blue accent, Manrope + DM Sans
+       =========================================== */
+    :root {
+        --bg-dark: #0a0a0a;
+        --bg-white: #ffffff;
+        --bg-off-white: #f5f5f0;
+        --accent-blue: #4361ee;
+        --accent-blue-light: rgba(67, 97, 238, 0.08);
+        --accent-blue-glow: rgba(67, 97, 238, 0.3);
+        --accent-warn: #e8590c;
+        --accent-warn-light: rgba(232, 89, 12, 0.08);
+        --text-dark: #0a0a0a;
+        --text-light: #ffffff;
+        --text-secondary-dark: #555;
+        --text-secondary-light: #aaa;
+        --text-muted: #888;
+        --border-light: #e0e0e0;
+        --border-dark: #222;
+
+        --font-display: 'Manrope', 'Helvetica Neue', sans-serif;
+        --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+
+        --title-size: clamp(1.8rem, 5vw, 4rem);
+        --h2-size: clamp(1.4rem, 3.5vw, 2.8rem);
+        --h3-size: clamp(1rem, 2vw, 1.4rem);
+        --body-size: clamp(0.75rem, 1.3vw, 1.05rem);
+        --small-size: clamp(0.65rem, 0.95vw, 0.85rem);
+        --label-size: clamp(0.6rem, 0.9vw, 0.78rem);
+
+        --slide-padding: clamp(1.5rem, 5vw, 5rem);
+        --content-gap: clamp(0.5rem, 1.5vw, 1.5rem);
+
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration-normal: 0.6s;
+    }
+
+    /* ===========================================
+       VIEWPORT FITTING: MANDATORY BASE STYLES
+       =========================================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; background: var(--bg-dark); }
+
+    .slides-container {
+        display: flex;
+        flex-direction: row;
+        height: 100vh; height: 100dvh;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .slide {
+        min-width: 100vw; width: 100vw;
+        height: 100vh; height: 100dvh;
+        overflow: hidden; scroll-snap-align: start;
+        display: flex; position: relative;
+        font-family: var(--font-body);
+        flex-shrink: 0;
+    }
+
+    .card, .container, .content-box {
+        max-width: min(90vw, 1000px);
+        max-height: min(80vh, 700px);
+    }
+    img, .image-container {
+        max-width: 100%;
+        max-height: min(50vh, 400px);
+        object-fit: contain;
+    }
+
+    /* --- RESPONSIVE BREAKPOINTS --- */
+    @media (max-height: 700px) {
+        :root {
+            --slide-padding: clamp(0.75rem, 3vw, 2rem);
+            --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+            --title-size: clamp(1.4rem, 4.5vw, 2.5rem);
+            --h2-size: clamp(1.1rem, 3vw, 1.75rem);
+        }
+    }
+    @media (max-height: 600px) {
+        :root {
+            --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+            --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+            --title-size: clamp(1.1rem, 4vw, 2rem);
+            --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+        }
+        .nav-dots, .keyboard-hint { display: none; }
+    }
+    @media (max-height: 500px) {
+        :root {
+            --slide-padding: clamp(0.4rem, 2vw, 1rem);
+            --title-size: clamp(1rem, 3.5vw, 1.5rem);
+            --body-size: clamp(0.65rem, 1vw, 0.85rem);
+        }
+    }
+    @media (max-width: 600px) {
+        :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+        .split-slide { flex-direction: column; }
+        .split-top, .split-bottom { width: 100%; }
+        .split-top { height: 45%; }
+        .split-bottom { height: 55%; }
+        .two-col { flex-direction: column; }
+        .grid-3 { grid-template-columns: 1fr !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+        html { scroll-behavior: auto; }
+    }
+
+    /* ===========================================
+       ELECTRIC STUDIO: SPLIT-PANEL LAYOUT
+       =========================================== */
+
+    /* Split panel: white top, blue bottom */
+    .split-slide { display: flex; flex-direction: column; }
+    .split-top {
+        flex: 1; background: var(--bg-white);
+        display: flex; flex-direction: column; justify-content: center;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+    .split-bottom {
+        flex: 1; background: var(--accent-blue);
+        display: flex; flex-direction: column; justify-content: center;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+
+    /* Full-panel slides */
+    .full-dark {
+        flex-direction: column; background: var(--bg-dark);
+    }
+    .full-dark .slide-content {
+        flex: 1; display: flex; flex-direction: column; justify-content: center;
+        max-height: 100%; overflow: hidden;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+    .full-white {
+        flex-direction: column; background: var(--bg-white);
+    }
+    .full-white .slide-content {
+        flex: 1; display: flex; flex-direction: column; justify-content: center;
+        max-height: 100%; overflow: hidden;
+        padding: var(--slide-padding);
+        padding-left: clamp(3rem, 8vw, 8rem);
+        position: relative; z-index: 1;
+    }
+
+    /* Corner brand mark */
+    .brand-mark {
+        position: absolute;
+        top: clamp(1rem, 2vw, 2rem);
+        right: clamp(1rem, 2vw, 2rem);
+        width: clamp(30px, 4vw, 50px);
+        height: clamp(30px, 4vw, 50px);
+        border: clamp(2px, 0.3vw, 4px) solid var(--accent-blue);
+        border-radius: 50%; z-index: 3;
+    }
+
+    /* Slide numbering */
+    .slide-number {
+        position: absolute;
+        bottom: clamp(1rem, 2vh, 2rem);
+        left: clamp(3rem, 8vw, 8rem);
+        font-family: var(--font-display);
+        font-size: var(--small-size);
+        font-weight: 700; z-index: 2;
+    }
+    .slide-meta {
+        position: absolute;
+        bottom: clamp(1rem, 2vh, 2rem);
+        right: clamp(2rem, 5vw, 5rem);
+        font-size: var(--label-size);
+        font-weight: 500; z-index: 2;
+    }
+    .split-slide .slide-number,
+    .split-slide .slide-meta { color: var(--text-light); }
+    .full-dark .slide-number,
+    .full-dark .slide-meta { color: var(--text-muted); }
+    .full-white .slide-number,
+    .full-white .slide-meta { color: var(--text-muted); }
+
+    /* ===========================================
+       TYPOGRAPHY
+       =========================================== */
+    .label {
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--accent-blue);
+        margin-bottom: clamp(0.4rem, 1vh, 1rem);
+        font-weight: 800;
+    }
+    .label-light { color: rgba(255, 255, 255, 0.7); }
+
+    h1 {
+        font-family: var(--font-display);
+        font-size: var(--title-size);
+        font-weight: 800; line-height: 1.05;
+        margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    .split-top h1 { color: var(--text-dark); }
+    .full-dark h1 { color: var(--text-light); }
+    .full-white h1 { color: var(--text-dark); }
+
+    h2 {
+        font-family: var(--font-display);
+        font-size: var(--h2-size);
+        font-weight: 800; line-height: 1.1;
+        margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    .full-dark h2 { color: var(--text-light); }
+    .full-white h2 { color: var(--text-dark); }
+
+    h3 {
+        font-family: var(--font-display);
+        font-size: var(--h3-size);
+        font-weight: 700; line-height: 1.2;
+        margin-bottom: clamp(0.3rem, 0.8vh, 0.6rem);
+    }
+
+    p, li { font-size: var(--body-size); line-height: 1.6; }
+    .full-dark p, .full-dark li { color: var(--text-secondary-light); }
+    .full-white p, .full-white li { color: var(--text-secondary-dark); }
+
+    .subtitle {
+        font-size: clamp(0.85rem, 1.6vw, 1.2rem);
+        font-weight: 400; line-height: 1.5;
+    }
+    .split-bottom .subtitle { color: rgba(255, 255, 255, 0.85); }
+
+    /* ===========================================
+       CONTENT PATTERNS
+       =========================================== */
+    .two-col {
+        display: flex; gap: clamp(1.5rem, 4vw, 4rem);
+        align-items: flex-start;
+        margin-top: clamp(0.5rem, 1.5vh, 1.5rem);
+    }
+    .two-col > div { flex: 1; }
+
+    .compare-box {
+        padding: clamp(0.6rem, 1.2vw, 1.2rem);
+        border-left: clamp(3px, 0.3vw, 5px) solid var(--accent-blue);
+        background: var(--accent-blue-light);
+        margin-bottom: clamp(0.4rem, 0.8vh, 0.8rem);
+    }
+    .full-dark .compare-box {
+        background: rgba(67, 97, 238, 0.1);
+        border-color: var(--accent-blue);
+    }
+    .full-white .compare-box {
+        background: var(--accent-blue-light);
+    }
+    .compare-box h3 { color: var(--accent-blue); }
+    .compare-box.warn {
+        border-color: var(--accent-warn);
+        background: var(--accent-warn-light);
+    }
+    .compare-box.warn h3 { color: var(--accent-warn); }
+
+    .bullet-list {
+        list-style: none; display: flex; flex-direction: column;
+        gap: clamp(0.3rem, 0.8vh, 0.8rem);
+    }
+    .bullet-list li { padding-left: clamp(1rem, 2vw, 1.5rem); position: relative; }
+    .bullet-list li::before {
+        content: ''; position: absolute; left: 0;
+        top: clamp(0.4rem, 0.7vh, 0.55rem);
+        width: clamp(5px, 0.5vw, 8px); height: clamp(5px, 0.5vw, 8px);
+        background: var(--accent-blue); border-radius: 50%;
+    }
+    .bullet-list li.warn::before { background: var(--accent-warn); }
+
+    /* Folder anatomy */
+    .folder-tree {
+        font-family: var(--font-body);
+        font-size: var(--body-size);
+        border-left: clamp(3px, 0.3vw, 5px) solid var(--accent-blue);
+        padding: clamp(0.8rem, 1.5vw, 1.5rem);
+        margin-top: clamp(0.5rem, 1vh, 1rem);
+        line-height: 1.8;
+    }
+    .full-dark .folder-tree { background: rgba(67, 97, 238, 0.08); }
+    .full-white .folder-tree { background: var(--accent-blue-light); }
+    .folder-tree .file { color: var(--accent-blue); font-weight: 700; }
+    .full-white .folder-tree .desc { color: var(--text-muted); font-style: italic; }
+    .full-dark .folder-tree .desc { color: var(--text-secondary-light); font-style: italic; }
+
+    /* Blue pill badge */
+    .badge {
+        display: inline-block;
+        padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.5rem, 1vw, 0.8rem);
+        background: var(--accent-blue); color: var(--text-light);
+        font-family: var(--font-display);
+        font-size: var(--label-size); font-weight: 700;
+        border-radius: 100px; letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+    .badge.outline {
+        background: transparent;
+        border: 2px solid var(--accent-blue);
+        color: var(--accent-blue);
+    }
+
+    /* Grid layouts */
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(0.5rem, 1.5vw, 1.2rem);
+        margin-top: clamp(0.5rem, 1vh, 1rem);
+    }
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(0.5rem, 1.5vw, 1.2rem);
+        margin-top: clamp(0.5rem, 1vh, 1rem);
+    }
+
+    /* Category cards */
+    .cat-card {
+        border: 1px solid var(--border-light);
+        border-radius: 6px;
+        padding: clamp(0.5rem, 1vw, 0.8rem);
+    }
+    .full-dark .cat-card { border-color: var(--border-dark); background: rgba(255,255,255,0.03); }
+    .full-white .cat-card { background: var(--bg-white); }
+    .cat-card.highlight { border-color: var(--accent-blue); box-shadow: 0 0 0 1px var(--accent-blue); }
+    .cat-card .cat-num {
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        color: var(--accent-blue); font-weight: 800;
+        margin-bottom: clamp(0.1rem, 0.2vh, 0.2rem);
+    }
+    .cat-card .cat-name {
+        font-family: var(--font-display);
+        font-size: var(--small-size);
+        font-weight: 700;
+        margin-bottom: clamp(0.1rem, 0.2vh, 0.2rem);
+    }
+    .full-dark .cat-card .cat-name { color: var(--text-light); }
+    .full-white .cat-card .cat-name { color: var(--text-dark); }
+    .cat-card .cat-example {
+        font-size: var(--label-size);
+        color: var(--text-muted); font-style: italic;
+    }
+
+    /* Flow diagram */
+    .flow-row {
+        display: flex; align-items: center;
+        gap: clamp(0.4rem, 1vw, 0.8rem);
+        margin-top: clamp(0.5rem, 1vh, 1rem);
+        flex-wrap: wrap;
+    }
+    .flow-box {
+        border: 1px solid var(--border-light);
+        border-radius: 6px;
+        padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem);
+        text-align: center; flex: 1; min-width: 90px;
+    }
+    .full-dark .flow-box { border-color: var(--border-dark); background: rgba(255,255,255,0.03); }
+    .full-white .flow-box { background: var(--bg-white); }
+    .flow-box.active { border-color: var(--accent-blue); box-shadow: 0 0 0 1px var(--accent-blue); }
+    .flow-box .flow-label {
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        color: var(--accent-blue); font-weight: 800;
+        letter-spacing: 0.05em;
+    }
+    .flow-box .flow-desc {
+        font-size: var(--label-size);
+        margin-top: 2px;
+    }
+    .full-dark .flow-box .flow-desc { color: var(--text-secondary-light); }
+    .full-white .flow-box .flow-desc { color: var(--text-secondary-dark); }
+    .flow-arrow {
+        font-family: var(--font-display);
+        font-size: var(--body-size);
+        color: var(--text-muted);
+    }
+
+    /* Rule cards */
+    .rule-card {
+        border-left: clamp(3px, 0.3vw, 5px) solid var(--accent-blue);
+        border-radius: 0 6px 6px 0;
+        padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem);
+    }
+    .full-dark .rule-card { background: rgba(67, 97, 238, 0.06); }
+    .full-white .rule-card { background: var(--accent-blue-light); }
+    .rule-card .rule-num {
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        color: var(--accent-blue); font-weight: 800;
+    }
+    .rule-card .rule-text {
+        font-size: var(--small-size);
+        margin-top: 2px;
+    }
+    .full-dark .rule-card .rule-text { color: var(--text-secondary-light); }
+    .full-white .rule-card .rule-text { color: var(--text-secondary-dark); }
+    .rule-card .rule-text strong { color: var(--text-dark); }
+    .full-dark .rule-card .rule-text strong { color: var(--text-light); }
+
+    /* Action items */
+    .action-card {
+        border: 2px solid var(--accent-blue);
+        border-radius: 8px;
+        padding: clamp(0.6rem, 1.2vw, 1.2rem);
+        text-align: center;
+    }
+    .full-dark .action-card { background: rgba(67, 97, 238, 0.06); }
+    .full-white .action-card { background: var(--accent-blue-light); }
+    .action-num {
+        font-family: var(--font-display);
+        font-size: var(--h2-size);
+        color: var(--accent-blue); font-weight: 800;
+    }
+    .action-text {
+        font-size: var(--body-size); font-weight: 700;
+        margin-top: clamp(0.3rem, 0.6vh, 0.5rem);
+    }
+    .full-dark .action-text { color: var(--text-light); }
+    .full-white .action-text { color: var(--text-dark); }
+    .action-sub {
+        font-size: var(--small-size);
+        margin-top: clamp(0.15rem, 0.3vh, 0.3rem);
+    }
+    .full-dark .action-sub { color: var(--text-secondary-light); }
+    .full-white .action-sub { color: var(--text-secondary-dark); }
+
+    /* Video placeholder */
+    .video-placeholder {
+        border: 2px dashed var(--border-dark);
+        border-radius: 12px;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        padding: clamp(2rem, 4vw, 4rem);
+        margin-top: clamp(0.5rem, 1vh, 1rem);
+        max-height: min(50vh, 350px);
+        background: rgba(255,255,255,0.02);
+    }
+    .play-icon {
+        width: clamp(50px, 7vw, 80px); height: clamp(50px, 7vw, 80px);
+        border: 3px solid var(--accent-blue);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: clamp(0.5rem, 1vh, 1rem);
+    }
+    .play-icon::after {
+        content: ''; display: block; width: 0; height: 0;
+        border-top: clamp(10px, 1.8vw, 16px) solid transparent;
+        border-bottom: clamp(10px, 1.8vw, 16px) solid transparent;
+        border-left: clamp(16px, 3vw, 26px) solid var(--accent-blue);
+        margin-left: clamp(3px, 0.5vw, 5px);
+    }
+
+    /* Closing quote */
+    .closing-quote {
+        font-family: var(--font-display);
+        font-size: clamp(0.9rem, 1.8vw, 1.25rem);
+        border-left: clamp(3px, 0.3vw, 5px) solid var(--accent-blue);
+        padding-left: clamp(0.8rem, 1.5vw, 1.5rem);
+        margin-top: clamp(0.8rem, 1.5vh, 1.5rem);
+        line-height: 1.6; font-weight: 500;
+    }
+    .full-dark .closing-quote { color: var(--text-secondary-light); }
+    .full-white .closing-quote { color: var(--text-secondary-dark); }
+    .closing-quote .hl { color: var(--accent-blue); font-weight: 800; }
+    .closing-quote .attribution {
+        display: block; margin-top: clamp(0.3rem, 0.5vh, 0.5rem);
+        font-size: var(--small-size); font-weight: 400;
+        color: var(--text-muted);
+    }
+
+    /* ===========================================
+       ANIMATIONS
+       =========================================== */
+    .reveal {
+        opacity: 0; transform: translateY(25px);
+        transition: opacity var(--duration-normal) var(--ease-out-expo),
+                    transform var(--duration-normal) var(--ease-out-expo);
+    }
+    .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+    .reveal:nth-child(1) { transition-delay: 0.1s; }
+    .reveal:nth-child(2) { transition-delay: 0.2s; }
+    .reveal:nth-child(3) { transition-delay: 0.3s; }
+    .reveal:nth-child(4) { transition-delay: 0.4s; }
+    .reveal:nth-child(5) { transition-delay: 0.5s; }
+
+    /* Panel slide-in for title */
+    .slide-in-bottom {
+        opacity: 0; transform: translateY(60px);
+        transition: opacity 0.8s var(--ease-out-expo),
+                    transform 0.8s var(--ease-out-expo);
+        transition-delay: 0.3s;
+    }
+    .slide.visible .slide-in-bottom { opacity: 1; transform: translateY(0); }
+
+    /* ===========================================
+       PROGRESS BAR + NAV DOTS
+       =========================================== */
+    .progress-bar {
+        position: fixed; top: 0; left: 0;
+        height: 3px; background: var(--accent-blue);
+        z-index: 9999; transition: width 0.3s ease;
+        width: 0%;
+    }
+    .nav-dots {
+        position: fixed; right: clamp(1rem, 2vw, 2rem);
+        top: 50%; transform: translateY(-50%);
+        display: flex; flex-direction: column;
+        gap: clamp(6px, 1vh, 12px); z-index: 9999;
+    }
+    .nav-dot {
+        width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px);
+        border-radius: 50%; border: 2px solid var(--accent-blue);
+        background: transparent; cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .nav-dot.active {
+        background: var(--accent-blue);
+        box-shadow: 0 0 8px var(--accent-blue-glow);
+    }
+
+    /* Keyboard hint */
+    .keyboard-hint {
+        position: fixed; bottom: clamp(0.5rem, 1vh, 1rem);
+        left: 50%; transform: translateX(-50%);
+        font-family: var(--font-display);
+        font-size: var(--label-size);
+        color: var(--text-muted); z-index: 9999; opacity: 0.5;
+    }
+    .keyboard-hint kbd {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid var(--border-dark);
+        border-radius: 4px; padding: 1px 6px;
+        font-family: var(--font-display);
+    }
+</style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    <!-- Navigation dots -->
+    <!-- Nav dots removed per critique — progress bar is sufficient -->
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint" id="keyHint"><kbd>←</kbd> <kbd>→</kbd> to navigate</div>
+    <div class="slides-container" id="slidesContainer">
+
+    <!-- ===========================================
+         SLIDE 1: TITLE (Split Panel — white/blue)
+         =========================================== -->
+    <section class="slide split-slide" id="slide-0">
+        <div class="brand-mark"></div>
+        <div class="split-top">
+            <div class="label reveal">Skills for Data Scientists</div>
+            <h1 class="reveal">Why You Re-Explain the Same Thing Every Session</h1>
+        </div>
+        <div class="split-bottom slide-in-bottom">
+            <p class="subtitle reveal">The architectural fix that makes your agent permanently smarter</p>
+            <div style="margin-top: clamp(0.5rem, 1vh, 1rem);">
+                <span class="badge reveal">Skills for Data Scientists</span>
+            </div>
+        </div>
+        <div class="slide-number">01 / 11</div>
+        <div class="slide-meta">2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2: THE PROBLEM (Full white)
+         =========================================== -->
+    <section class="slide full-white" id="slide-1">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal">The Problem</div>
+            <h2 class="reveal">Sound Familiar?</h2>
+            <div class="two-col reveal">
+                <div>
+                    <div class="compare-box warn"><h3>Every session</h3></div>
+                    <ul class="bullet-list">
+                        <li class="warn"><strong>Re-prompting</strong> — "Our CTR metric excludes bot traffic..." (again)</li>
+                        <li class="warn"><strong>Lost context</strong> — Agent forgets your SQL conventions mid-session</li>
+                        <li class="warn"><strong>Inconsistent output</strong> — Report format different every time</li>
+                        <li class="warn"><strong>Same mistakes</strong> — Local timezone instead of UTC (third time)</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="compare-box"><h3>The cost</h3></div>
+                    <p style="font-family: var(--font-display); font-size: var(--h2-size); font-weight: 800; color: var(--accent-warn); margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);">~15 min/session</p>
+                    <p style="color: var(--text-secondary-dark); font-size: var(--body-size);">re-teaching what your agent should already know</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">02 / 11</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3: ROOT CAUSE (Full dark)
+         =========================================== -->
+    <section class="slide full-white" id="slide-2" style="background: #eef1ff;">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal">Root Cause</div>
+            <h2 class="reveal" style="color: var(--text-dark);">Your Agent Has Amnesia</h2>
+            <p class="reveal subtitle" style="color: var(--text-secondary-dark); margin-bottom: clamp(0.5rem, 1vh, 1rem);">Each session starts from zero. Here's the fix — three layers of agent memory:</p>
+            <div class="grid-3 reveal">
+                <div class="cat-card">
+                    <div class="cat-num">LAYER 1</div>
+                    <div class="cat-name">CLAUDE.md</div>
+                    <p class="cat-example">Long-term memory — preferences, conventions, role. Loaded every session.</p>
+                </div>
+                <div class="cat-card highlight">
+                    <div class="cat-num">LAYER 2</div>
+                    <div class="cat-name">Skills</div>
+                    <p class="cat-example">Specialized knowledge — metric defs, analysis workflows, report templates. Loaded on demand.</p>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-num">LAYER 3</div>
+                    <div class="cat-name">SubAgents</div>
+                    <p class="cat-example">Delegated workers — isolated context for heavy tasks. Keeps main agent clean.</p>
+                </div>
+            </div>
+            <p class="reveal" style="margin-top: clamp(0.5rem, 1vh, 1rem); font-family: var(--font-display); font-size: var(--body-size); color: var(--accent-blue); font-weight: 700;">Today's focus: Layer 2 — Skills</p>
+        </div>
+        <div class="slide-number" style="color: var(--text-muted);">03 / 11</div>
+        <div class="slide-meta" style="color: var(--text-muted);">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 4: WHAT IS A SKILL (Full white)
+         =========================================== -->
+    <section class="slide full-white" id="slide-3">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal">Concept</div>
+            <h2 class="reveal">What Is a Skill?</h2>
+            <p class="reveal" style="margin-bottom: clamp(0.3rem, 0.6vh, 0.5rem);">A folder with 3 components. Agent reads SKILL.md; calls scripts on demand; references when needed.</p>
+            <div class="folder-tree reveal">
+                <span class="file">metric-investigation/</span><br>
+                &nbsp;&nbsp;├── <span class="file">SKILL.md</span> <span class="desc">— strategic philosophy: what, why, gotchas</span><br>
+                &nbsp;&nbsp;├── <span class="file">scripts/</span><br>
+                &nbsp;&nbsp;│&nbsp;&nbsp;├── <span class="file">pull_data.py</span> <span class="desc">— parameterized SQL runner</span><br>
+                &nbsp;&nbsp;│&nbsp;&nbsp;└── <span class="file">compute_stats.py</span> <span class="desc">— significance testing</span><br>
+                &nbsp;&nbsp;└── <span class="file">references/</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="file">metric_defs.md</span> <span class="desc">— team's metric glossary</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="file">table_schemas.md</span> <span class="desc">— column descriptions, joins</span>
+            </div>
+            <p class="reveal" style="margin-top: clamp(0.4rem, 0.8vh, 0.6rem); font-size: var(--small-size); color: var(--text-muted);">Like a notebook template + shared utility functions + data dictionary — for your agent, not for you.</p>
+        </div>
+        <div class="slide-number">04 / 11</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 5: 9 CATEGORIES (Full dark)
+         =========================================== -->
+    <section class="slide full-dark" id="slide-4">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal" style="color: rgba(67, 97, 238, 0.8);">Taxonomy</div>
+            <h2 class="reveal">9 Categories of Skills</h2>
+            <p class="reveal" style="margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);">Every skill fits exactly one. If it straddles multiple — split it.</p>
+            <div class="grid-3 reveal">
+                <div class="cat-card"><div class="cat-num">01</div><div class="cat-name">Library & API</div><div class="cat-example">"How to use our ML SDK with gotchas"</div></div>
+                <div class="cat-card highlight"><div class="cat-num">02</div><div class="cat-name">Verification</div><div class="cat-example">"Check model output quality gates"</div></div>
+                <div class="cat-card highlight"><div class="cat-num">03</div><div class="cat-name">Data Fetching</div><div class="cat-example">"Pull experiment data from warehouse"</div></div>
+                <div class="cat-card highlight"><div class="cat-num">04</div><div class="cat-name">Business Process</div><div class="cat-example">"Weekly metric report generation"</div></div>
+                <div class="cat-card highlight"><div class="cat-num">05</div><div class="cat-name">Scaffolding</div><div class="cat-example">"New A/B test analysis template"</div></div>
+                <div class="cat-card highlight"><div class="cat-num">06</div><div class="cat-name">Code Quality</div><div class="cat-example">"SQL + Python review for DS"</div></div>
+                <div class="cat-card"><div class="cat-num">07</div><div class="cat-name">CI/CD</div><div class="cat-example">"Deploy model to serving endpoint"</div></div>
+                <div class="cat-card highlight"><div class="cat-num">08</div><div class="cat-name">Runbooks</div><div class="cat-example">"Metric dropped — diagnose why"</div></div>
+                <div class="cat-card"><div class="cat-num">09</div><div class="cat-name">Infrastructure</div><div class="cat-example">"Rotate keys, manage pipelines"</div></div>
+            </div>
+            <p class="reveal" style="margin-top: clamp(0.3rem, 0.5vh, 0.5rem); font-size: var(--small-size); color: var(--accent-blue); font-family: var(--font-display); font-weight: 700;">Highlighted = DS sweet spot: 6 of 9 categories directly serve data science workflows</p>
+        </div>
+        <div class="slide-number">05 / 11</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 6: SKILLS VS SUBAGENTS (Split panel)
+         =========================================== -->
+    <section class="slide split-slide" id="slide-5">
+        <div class="brand-mark"></div>
+        <div class="split-top" style="padding-bottom: clamp(0.5rem, 1vh, 1rem);">
+            <div class="label reveal">Comparison</div>
+            <h2 class="reveal" style="color: var(--text-dark); margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);">Skills = Depth</h2>
+            <ul class="bullet-list reveal" style="color: var(--text-secondary-dark);">
+                <li><strong style="color: var(--text-dark);">Add knowledge</strong> to the agent's brain</li>
+                <li><strong style="color: var(--text-dark);">Reusable</strong> — loaded on demand, session after session</li>
+                <li><strong style="color: var(--text-dark);">Run in-context</strong> — white box, you see reasoning</li>
+            </ul>
+        </div>
+        <div class="split-bottom slide-in-bottom" style="padding-top: clamp(0.5rem, 1vh, 1rem);">
+            <h2 class="reveal" style="color: var(--text-light); margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);">SubAgents = Breadth</h2>
+            <ul class="bullet-list reveal" style="color: rgba(255,255,255,0.8);">
+                <li style="color: rgba(255,255,255,0.8);"><strong style="color: var(--text-light);">Add workers</strong> — isolated child agents</li>
+                <li style="color: rgba(255,255,255,0.8);"><strong style="color: var(--text-light);">One-shot</strong> — spun up, does work, reports back</li>
+                <li style="color: rgba(255,255,255,0.8);"><strong style="color: var(--text-light);">Isolated context</strong> — black box, protects main agent</li>
+            </ul>
+            <p class="reveal" style="margin-top: clamp(0.4rem, 0.8vh, 0.8rem);"><span class="badge" style="background: var(--text-light); color: var(--accent-blue);">Best pattern: Skill inside SubAgent = 1+1 &gt; 2</span></p>
+        </div>
+        <div class="slide-number">06 / 11</div>
+        <div class="slide-meta">2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 7: DEMO — Video placeholder (Full dark)
+         =========================================== -->
+    <section class="slide split-slide" id="slide-6">
+        <div class="brand-mark"></div>
+        <div class="split-top">
+            <div class="label reveal">How It Works</div>
+            <h1 class="reveal">Build a Skill in 3 Steps</h1>
+        </div>
+        <div class="split-bottom slide-in-bottom">
+            <div class="grid-3 reveal" style="margin-top: 0; text-align: center;">
+                <div>
+                    <div style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; color: var(--text-light);">01</div>
+                    <div style="font-size: var(--body-size); font-weight: 700; color: var(--text-light);">Do the work</div>
+                    <div style="font-size: var(--small-size); color: rgba(255,255,255,0.7); margin-top: 4px;">Run your analysis as usual</div>
+                </div>
+                <div>
+                    <div style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; color: var(--text-light);">02</div>
+                    <div style="font-size: var(--body-size); font-weight: 700; color: var(--text-light);">Extract the skill</div>
+                    <div style="font-size: var(--small-size); color: rgba(255,255,255,0.7); margin-top: 4px;">"Capture the reusable parts"</div>
+                </div>
+                <div>
+                    <div style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; color: var(--text-light);">03</div>
+                    <div style="font-size: var(--body-size); font-weight: 700; color: var(--text-light);">Improve from usage</div>
+                    <div style="font-size: var(--small-size); color: rgba(255,255,255,0.7); margin-top: 4px;">Add gotchas as you go</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">07 / 11</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 8: REAL EXAMPLE — Architecture flow (Full white)
+         =========================================== -->
+    <section class="slide full-white" id="slide-7">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal">Architecture</div>
+            <h2 class="reveal">Real Example: Metric Investigation Skill</h2>
+            <p class="reveal" style="margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);">The hybrid split: agent reasons, code computes.</p>
+            <div class="flow-row reveal">
+                <div class="flow-box"><div class="flow-label">Question</div><div class="flow-desc">"Why did CTR drop?"</div></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box active"><div class="flow-label">SKILL.md</div><div class="flow-desc">Interprets</div></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box"><div class="flow-label">Scripts</div><div class="flow-desc">Pulls & computes</div></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box active"><div class="flow-label">SKILL.md</div><div class="flow-desc">Explains</div></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box"><div class="flow-label">Report</div><div class="flow-desc">Formatted output</div></div>
+            </div>
+            <div class="grid-2 reveal" style="margin-top: clamp(0.5rem, 1vh, 1rem);">
+                <div class="cat-card">
+                    <div class="cat-name" style="color: var(--accent-blue);">Agent handles (judgment)</div>
+                    <p class="cat-example" style="font-style: normal;">Interpreting ambiguous questions · Diagnosing anomalies · Explaining results in context</p>
+                </div>
+                <div class="cat-card">
+                    <div class="cat-name" style="color: var(--accent-blue);">Code handles (deterministic)</div>
+                    <p class="cat-example" style="font-style: normal;">Metric routing · SQL execution · Significance testing · Data quality validation</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">08 / 11</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 9: 5 RULES (Full dark)
+         =========================================== -->
+    <section class="slide full-white" id="slide-8" style="background: #eef1ff;">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="label reveal">Best Practices</div>
+            <h2 class="reveal" style="color: var(--text-dark);">5 Rules for Good Skills</h2>
+            <div class="grid-2 reveal" style="margin-top: clamp(0.3rem, 0.5vh, 0.5rem); gap: clamp(0.4rem, 0.8vw, 0.8rem);">
+                <div class="rule-card">
+                    <div class="rule-num">01</div>
+                    <div class="rule-text"><strong>Gotchas are gold.</strong> Every failure becomes a gotcha. This is how institutional knowledge compounds.</div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-num">02</div>
+                    <div class="rule-text"><strong>Agent reasons, code computes.</strong> Don't let the LLM do math. Don't let scripts interpret questions.</div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-num">03</div>
+                    <div class="rule-text"><strong>One skill = one job.</strong> Chain atomic skills for complex workflows. Don't build god-skills.</div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-num">04</div>
+                    <div class="rule-text"><strong>Description = trigger.</strong> Write WHEN to activate, not a summary. This is the ranking signal.</div>
+                </div>
+                <div class="rule-card" style="grid-column: 1 / -1;">
+                    <div class="rule-num">05</div>
+                    <div class="rule-text"><strong>Start rough, iterate from usage.</strong> A 70% skill that exists beats a perfect skill in your head. Extract from real work, improve through corrections.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">09 / 11</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 10: GET STARTED (Split panel)
+         =========================================== -->
+    <section class="slide split-slide" id="slide-9">
+        <div class="brand-mark"></div>
+        <div class="split-top">
+            <div class="label reveal">Action Items</div>
+            <h1 class="reveal" style="color: var(--text-dark);">Get Started Today</h1>
+        </div>
+        <div class="split-bottom slide-in-bottom">
+            <div class="grid-3 reveal" style="margin-top: 0;">
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-display); font-size: var(--h2-size); font-weight: 800; color: var(--text-light);">01</div>
+                    <div style="font-size: var(--body-size); color: var(--text-light); font-weight: 700; margin-top: 4px;">Build one skill</div>
+                    <div style="font-size: var(--small-size); color: rgba(255,255,255,0.7); margin-top: 2px;">Pick your most repeated workflow. Use Path B: do it → extract.</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-display); font-size: var(--h2-size); font-weight: 800; color: var(--text-light);">02</div>
+                    <div style="font-size: var(--body-size); color: var(--text-light); font-weight: 700; margin-top: 4px;">Add 3 gotchas</div>
+                    <div style="font-size: var(--small-size); color: rgba(255,255,255,0.7); margin-top: 2px;">Every Claude mistake → gotcha entry. Compound over time.</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-display); font-size: var(--h2-size); font-weight: 800; color: var(--text-light);">03</div>
+                    <div style="font-size: var(--body-size); color: var(--text-light); font-weight: 700; margin-top: 4px;">Share with team</div>
+                    <div style="font-size: var(--small-size); color: rgba(255,255,255,0.7); margin-top: 2px;">Put skills in .claude/skills/ in your repo. Everyone gets the knowledge.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">10 / 11</div>
+        <div class="slide-meta">2026</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 11: RESOURCES & CLOSING (Full white)
+         =========================================== -->
+    <section class="slide full-white" id="slide-10">
+        <div class="brand-mark"></div>
+        <div class="slide-content">
+            <div class="closing-quote reveal" style="font-size: clamp(1rem, 2.5vw, 1.6rem); margin-bottom: clamp(1rem, 2vh, 2rem); line-height: 1.5;">
+                "The competition in AI agents is shifting from how many tools you can call to <span class="hl">how elegantly you manage context.</span>"
+                <span class="attribution">— @dotey (宝玉)</span>
+            </div>
+            <div class="reveal" style="font-size: var(--small-size); color: var(--text-muted); display: flex; gap: clamp(1rem, 3vw, 3rem); flex-wrap: wrap;">
+                <div>
+                    <strong style="color: var(--text-secondary-dark);">Follow</strong><br>
+                    @trq212 · @dotey · @alexalbert__
+                </div>
+                <div>
+                    <strong style="color: var(--text-secondary-dark);">Read</strong><br>
+                    Anthropic Docs · Baoyu's Skills (GitHub) · Thariq's Design Guide
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">11 / 11</div>
+        <div class="slide-meta">Skills for DS · 2026</div>
+    </section>
+
+    </div><!-- /slides-container -->
+
+    <script>
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           Horizontal scroll, keyboard, touch, progress
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.container = document.getElementById('slidesContainer');
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupKeyboardHint();
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = idx;
+                            this.updateProgressBar();
+                        }
+                    });
+                }, { threshold: 0.5, root: this.container });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                        this.hideKeyHint();
+                    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                        this.hideKeyHint();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault(); this.goToSlide(0);
+                    } else if (e.key === 'End') {
+                        e.preventDefault(); this.goToSlide(this.slides.length - 1);
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let startX = 0;
+                this.container.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+                this.container.addEventListener('touchend', (e) => {
+                    const diff = startX - e.changedTouches[0].clientX;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                        else this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                    }
+                });
+            }
+
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+                this.updateProgressBar();
+            }
+            updateProgressBar() {
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                if (this.progressBar) this.progressBar.style.width = progress + '%';
+            }
+
+            setupKeyboardHint() { this.keyHint = document.getElementById('keyHint'); }
+            hideKeyHint() {
+                if (this.keyHint) {
+                    this.keyHint.style.opacity = '0';
+                    this.keyHint.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => { if (this.keyHint) this.keyHint.style.display = 'none'; }, 500);
+                }
+            }
+
+            goToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>

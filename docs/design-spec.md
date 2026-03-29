@@ -1,7 +1,7 @@
 # Design Spec: Teaching DS About Claude Code Skills
 
 **Project:** ds-skills-teaching
-**Date:** 2026-03-28 | **Status:** IN PROGRESS
+**Date:** 2026-03-29 | **Status:** COMPLETE
 
 ---
 
@@ -88,8 +88,8 @@ Problem → Root Cause → Solution → Architecture → Real Example → Decisi
 ## Checkpoints
 
 1. ✅ Design spec approved
-2. ⬜ References + synthesis reviewed
-3. ⬜ Slide style picked (3 prototypes)
-4. ⬜ Confluence pages reviewed
-5. ⬜ HTML deck reviewed
-6. ⬜ Novita AI image bake-off (FLUX 2 Pro vs Seedream 4.5)
+2. ✅ References + synthesis reviewed
+3. ✅ Slide style picked (3 prototypes)
+4. ✅ Confluence pages reviewed
+5. ✅ HTML deck reviewed
+6. ✅ Novita AI image bake-off (FLUX 2 Pro vs Seedream 4.5)

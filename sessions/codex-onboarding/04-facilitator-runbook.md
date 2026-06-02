@@ -51,7 +51,7 @@ Participants can classify one workflow into RovoDev CLI, Cursor App, Codex App, 
 
 Timebox: 25-30 minutes.
 
-Use [Live Demo: Workflow Migration Receipt](09-live-demo-workflow-receipt.md).
+Use [Live Demo: Workflow Migration Receipt](03-live-demo-workflow-receipt.md).
 
 Run the prompt.
 

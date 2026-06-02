@@ -346,10 +346,10 @@ It is a skill candidate.
 
 This demo follows the positioning in:
 
-- `02-offsite-codex-setup-daily-workflow.md`
-- `05-tool-surface-comparison-web-research.md`
-- `07-ds-audience-review-x-style-gap.md`
-- `08-improvement-plan-x-style-rewrite.md`
+- [Live workshop script](02-live-workshop-script.md)
+- [Tool surface comparison](05-tool-surface-comparison.md)
+- [DS audience review and X-style gap analysis](../../references/codex/source-notes/ds-audience-review-x-style-gap.md)
+- [Improvement plan for X-style rewrite](../../references/codex/source-notes/improvement-plan-x-style-rewrite.md)
 
 External reference anchors:
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Codex Onboarding Flow</title>
+  <desc id="desc">A beginner-safe path from install to daily use.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#102033" flood-opacity="0.14"/>
+    </filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7fafc"/>
+      <stop offset="100%" stop-color="#e8eef5"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="13" markerHeight="13" refX="10" refY="6.5" orient="auto">
+      <path d="M0,0 L13,6.5 L0,13 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="820" fill="url(#bg)"/>
+  <text x="64" y="72" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">Codex Onboarding Flow</text>
+  <text x="64" y="112" font-family="Inter, Arial, sans-serif" font-size="18" fill="#475569">A beginner-safe path from install to daily use.</text>
+  
+  <g filter="url(#shadow)">
+  <rect x="70" y="160" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="94" y="202" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">1. Install</text>
+  <text x="94" y="236" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Codex App</text>
+<text x="94" y="262" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Codex CLI if needed</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="350" y="160" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="374" y="202" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">2. Project</text>
+  <text x="374" y="236" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Open a folder</text>
+<text x="374" y="262" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Read local truth</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="630" y="160" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="654" y="202" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">3. Rules</text>
+  <text x="654" y="236" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">AGENTS.md</text>
+<text x="654" y="262" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Boundaries</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="910" y="160" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="934" y="202" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">4. Tools</text>
+  <text x="934" y="236" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Plugins/MCP</text>
+<text x="934" y="262" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Only approved</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="1190" y="160" width="150" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="1214" y="202" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">5. Verify</text>
+  <text x="1214" y="236" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Receipt</text>
+<text x="1214" y="262" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Next step</text>
+</g>
+  <line x1="300" y1="225" x2="345" y2="225" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="580" y1="225" x2="625" y2="225" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="860" y1="225" x2="905" y2="225" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1140" y1="225" x2="1185" y2="225" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)">
+  <rect x="210" y="430" width="300" height="180" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="234" y="472" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">First safe prompt</text>
+  <text x="234" y="506" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Read-only inspection</text>
+<text x="234" y="532" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">No secrets</text>
+<text x="234" y="558" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Save a markdown receipt</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="550" y="430" width="300" height="180" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="574" y="472" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">First useful workflow</text>
+  <text x="574" y="506" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Notebook review</text>
+<text x="574" y="532" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Experiment checklist</text>
+<text x="574" y="558" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Handoff summary</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="890" y="430" width="300" height="180" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="914" y="472" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">First reusable pattern</text>
+  <text x="914" y="506" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Turn repeated steps</text>
+<text x="914" y="532" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">into a skill or template</text>
+<text x="914" y="558" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">after 2-3 uses</text>
+</g>
+  <line x1="510" y1="520" x2="545" y2="520" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="850" y1="520" x2="885" y2="520" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  
+</svg>

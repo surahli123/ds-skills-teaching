@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Cross-Tool Skill Management Lifecycle</title>
+  <desc id="desc">A skill becomes durable only when it has an owner, version, tests, and adapters for each tool.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#102033" flood-opacity="0.14"/>
+    </filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7fafc"/>
+      <stop offset="100%" stop-color="#e8eef5"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="13" markerHeight="13" refX="10" refY="6.5" orient="auto">
+      <path d="M0,0 L13,6.5 L0,13 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="820" fill="url(#bg)"/>
+  <text x="64" y="72" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">Cross-Tool Skill Management Lifecycle</text>
+  <text x="64" y="112" font-family="Inter, Arial, sans-serif" font-size="18" fill="#475569">A skill becomes durable only when it has an owner, version, tests, and adapters for each tool.</text>
+  
+  <g filter="url(#shadow)">
+  <rect x="80" y="165" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="104" y="207" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Capture</text>
+  <text x="104" y="241" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Repeated workflow</text>
+<text x="104" y="267" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Pain point</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="360" y="165" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="384" y="207" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Draft</text>
+  <text x="384" y="241" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">One SKILL.md</text>
+<text x="384" y="267" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Clear output</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="640" y="165" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="664" y="207" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Adapt</text>
+  <text x="664" y="241" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">RovoDev</text>
+<text x="664" y="267" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Cursor</text>
+<text x="664" y="293" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Codex</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="920" y="165" width="230" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="944" y="207" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Verify</text>
+  <text x="944" y="241" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Run examples</text>
+<text x="944" y="267" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Review drift</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="1200" y="165" width="130" height="130" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="1224" y="207" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Share</text>
+  <text x="1224" y="241" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Version</text>
+<text x="1224" y="267" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Owner</text>
+</g>
+  <line x1="310" y1="230" x2="355" y2="230" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="590" y1="230" x2="635" y2="230" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="870" y1="230" x2="915" y2="230" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1150" y1="230" x2="1195" y2="230" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)">
+  <rect x="190" y="440" width="300" height="170" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="214" y="482" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Single Source of Truth</text>
+  <text x="214" y="516" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Keep canonical copy in one repo</text>
+<text x="214" y="542" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Symlink or install elsewhere</text>
+<text x="214" y="568" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Avoid per-tool drift</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="550" y="440" width="300" height="170" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="574" y="482" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Review Loop</text>
+  <text x="574" y="516" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Monthly pruning</text>
+<text x="574" y="542" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Promote memory to skill</text>
+<text x="574" y="568" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Retire stale playbooks</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="910" y="440" width="300" height="170" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="934" y="482" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Governance</text>
+  <text x="934" y="516" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Owner</text>
+<text x="934" y="542" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Changelog</text>
+<text x="934" y="568" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Compatibility notes</text>
+<text x="934" y="594" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Examples</text>
+</g>
+  
+</svg>

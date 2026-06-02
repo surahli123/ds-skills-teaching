@@ -7,13 +7,13 @@ This folder contains the teaching materials distilled from the X bookmark resear
 ## Use These For The Offsite
 
 1. [Codex 101 general](01-codex-101-general.md) - conceptual onboarding for Codex App, threads, plugins, MCP, skills, and artifacts.
-2. [Offsite setup + daily workflow](02-offsite-codex-setup-daily-workflow.md) - live-session script aligned to the 10/30/15 agenda.
-3. [Skill management across RovoDev/Cursor/Codex](03-skill-management-across-rovodev-cursor-codex.md) - second-session material for skill sharing and governance.
-4. [Advanced topics from X bookmarks](04-advanced-topics-from-x-bookmarks.md) - follow-up reading after the first onboarding session.
-5. [Tool surface comparison from web research](05-tool-surface-comparison-web-research.md) - source-backed correction for Rovo Dev CLI, Cursor App, Codex App, and Codex CLI.
-6. [Markdown image insertion pattern](06-markdown-image-insertion-pattern.md) - how to place screenshots and generated visuals inside tutorial markdown.
-7. [Live demo workflow receipt](09-live-demo-workflow-receipt.md) - the concrete live exercise: worksheet, receipt, and next-session prompt.
-8. [Facilitator runbook](10-facilitator-runbook.md) - a timeboxed script for running the workshop.
+2. [Live workshop script](02-live-workshop-script.md) - live-session script aligned to the 10/30/15 agenda.
+3. [Live demo workflow receipt](03-live-demo-workflow-receipt.md) - the concrete live exercise: worksheet, receipt, and next-session prompt.
+4. [Facilitator runbook](04-facilitator-runbook.md) - a timeboxed script for running the workshop.
+5. [Tool surface comparison](05-tool-surface-comparison.md) - source-backed correction for Rovo Dev CLI, Cursor App, Codex App, and Codex CLI.
+6. [Skill management across tools](06-skill-management-across-tools.md) - second-session material for skill sharing and governance.
+7. [Advanced topics from X bookmarks](07-advanced-topics-from-x-bookmarks.md) - follow-up reading after the first onboarding session.
+8. [Markdown image insertion pattern](08-markdown-image-insertion-pattern.md) - how to place screenshots and generated visuals inside tutorial markdown.
 
 ## Visual Assets
 
@@ -51,13 +51,13 @@ The tutorial docs follow CodexGuide's recipe style: put images in a nearby asset
 ![Tool showcase map](assets/imagegen-tool-showcase.png)
 ```
 
-See [Markdown image insertion pattern](06-markdown-image-insertion-pattern.md) for the reusable guide.
+See [Markdown image insertion pattern](08-markdown-image-insertion-pattern.md) for the reusable guide.
 
 ## Suggested Reading Order
 
-For live facilitation: read docs 2 -> 1 -> 3.
+For live facilitation: read docs 2 -> 3 -> 4.
 
-For async onboarding: send docs 1 -> 2, then offer docs 3, 4, and 5 as follow-up.
+For async onboarding: send docs 1 -> 2, then offer docs 5, 6, and 7 as follow-up.
 
 ## How The References Were Applied
 
@@ -67,10 +67,16 @@ For async onboarding: send docs 1 -> 2, then offer docs 3, 4, and 5 as follow-up
 - baoyu-infographic informed the visual prompt style: each generated image has a saved prompt with layout, style, aspect ratio, language, content blocks, and concise labels.
 - HyperFrames is treated as the confirmed live showcase. Chrome DevTools CLI is deliberately labeled pending verification.
 
+## Source Notes
+
+Internal critique and rewrite-planning notes are kept out of the main reading path:
+
+- [DS audience review and X-style gap analysis](../../references/codex/source-notes/ds-audience-review-x-style-gap.md)
+- [Improvement plan for X-style rewrite](../../references/codex/source-notes/improvement-plan-x-style-rewrite.md)
+
 ## Source References Used
 
-- X bookmark capture: `../codex-101-x-bookmark-classification.md`
-- Skill-management bookmark split: `../codex-claude-skill-management-bookmarks.md`
+- X bookmark and skill-management synthesis is preserved in [../../references/codex/source-notes/](../../references/codex/source-notes/).
 - baoyu-infographic skill: https://github.com/JimLiu/baoyu-skills/tree/main/skills/baoyu-infographic
 - CodexGuide docs: https://github.com/freestylefly/CodexGuide/tree/main/docs
 - CodexGuide Chrome/browser plugin recipe: https://github.com/freestylefly/CodexGuide/blob/main/docs/recipes/chrome-browser-plugin.md

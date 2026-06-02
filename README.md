@@ -1,20 +1,36 @@
 # DS Agent Teaching Materials
 
-This repository collects teaching materials for data-science agent workflows:
+This repository collects teaching materials for data-science agent workflows.
 
-- [Skills for DS slides](slides/skills-for-ds.html)
-- [Parent skills guide](pages/00-parent-skills-for-ds.md)
-- [Codex onboarding package](pages/codex-onboarding/README.md)
+## Sessions
 
-## Codex Onboarding Package
+| Session | Use It For | Entry Point |
+| --- | --- | --- |
+| Skills for DS | Teaching how reusable agent skills work and when DS should create them | [sessions/skills-for-ds/README.md](sessions/skills-for-ds/README.md) |
+| Codex onboarding | Teaching Codex App/CLI setup, workflow routing, receipts, and live offsite facilitation | [sessions/codex-onboarding/README.md](sessions/codex-onboarding/README.md) |
 
-The Codex onboarding package is designed for a live workshop plus async reading material.
+## Repository Map
 
-Core framing:
+- `sessions/` contains reader-facing teaching packages.
+- `references/` contains source notes, research synthesis, and design references.
+- `docs/` contains project-level design notes.
+- `scripts/` contains generation utilities used for earlier visual exploration.
+
+## Current Live Entry
+
+The GitHub Pages entry currently redirects to:
+
+[sessions/skills-for-ds/slides/skills-for-ds.html](sessions/skills-for-ds/slides/skills-for-ds.html)
+
+The Codex onboarding package is markdown-first and lives at:
+
+[sessions/codex-onboarding/README.md](sessions/codex-onboarding/README.md)
+
+## Codex Onboarding Framing
 
 > Start with a workflow. End with a receipt.
 
-Use it to teach:
+Use the Codex package to teach:
 
 - Codex App setup and mental model;
 - workflow routing across RovoDev CLI, Cursor App, Codex App, and Codex CLI;

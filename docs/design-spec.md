@@ -61,17 +61,19 @@ Two complementary tools:
 ```
 ds-skills-teaching/
 ├── docs/design-spec.md           # This file
-├── references/                    # 11-12 distilled source files
-│   ├── 00-synthesis.md           # Cross-cutting themes + teaching levels
-│   └── 01-11 numbered sources
-├── pages/                         # 4 Confluence-ready markdown
-│   ├── 00-parent-skills-for-ds.md
-│   ├── 01-what-and-when.md
-│   ├── 02-setup-guide.md
-│   └── 03-advanced-patterns.md
-├── slides/
-│   └── skills-for-ds.html        # 11-slide HTML deck
-└── images/                        # Novita AI generated slide images
+├── references/
+│   └── skill-design/              # Distilled source files and synthesis
+├── sessions/
+│   └── skills-for-ds/
+│       ├── README.md
+│       ├── pages/                 # Confluence-ready markdown
+│       │   ├── 00-parent-skills-for-ds.md
+│       │   ├── 01-what-and-when.md
+│       │   ├── 02-setup-guide.md
+│       │   └── 03-advanced-patterns.md
+│       └── slides/
+│           └── skills-for-ds.html # HTML deck
+└── scripts/                       # Image-generation utilities
 ```
 
 ## Narrative Arc (Slides)

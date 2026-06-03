@@ -1,42 +1,42 @@
 # DS Agent Teaching Materials
 
-This repository collects teaching materials for data-science agent workflows.
+A practical curriculum for teaching data scientists how to use AI agents as repeatable workflows: skills, subagents, Codex, artifacts, receipts, and handoff.
+
+![DS Agent Teaching Hub](assets/landing/ds-agent-teaching-hub.png)
 
 ## Sessions
 
-| Session | Use It For | Entry Point |
-| --- | --- | --- |
-| Skills for DS | Teaching how reusable agent skills work and when DS should create them | [sessions/skills-for-ds/README.md](sessions/skills-for-ds/README.md) |
-| Codex onboarding | Teaching Codex App/CLI setup, workflow routing, receipts, and live offsite facilitation | [sessions/codex-onboarding/README.md](sessions/codex-onboarding/README.md) |
+| Track | Teaches | Best For | Entry Point |
+| --- | --- | --- | --- |
+| Skills for DS | Reusable workflow knowledge | Teams that keep re-explaining prompts, context, metric rules, and report formats | [sessions/skills-for-ds/README.md](sessions/skills-for-ds/README.md) |
+| Codex onboarding | Workflow routing, Codex App/CLI, artifacts, receipts, and handoff | Live offsite sessions and async onboarding for Codex workflows | [sessions/codex-onboarding/README.md](sessions/codex-onboarding/README.md) |
+| Subagents for DS | Parallel review, delegation, and multi-perspective analysis | Coming next, planned import from the subagent tutorial repo | Coming next |
+
+## Recommended Paths
+
+| Starting Point | Path |
+| --- | --- |
+| New to agent workflows | Skills for DS -> Subagents for DS -> Codex onboarding |
+| Preparing the Codex offsite | Codex onboarding -> Skills for DS |
+| Building repeatable DS workflows | Skills for DS -> Codex onboarding -> Subagents for DS |
 
 ## Repository Map
 
-- `sessions/` contains reader-facing teaching packages.
-- `references/` contains source notes, research synthesis, and design references.
-- `docs/` contains project-level design notes.
-- `scripts/` contains generation utilities used for earlier visual exploration.
+- [sessions/](sessions/README.md) contains reader-facing teaching packages.
+- [references/](references/README.md) contains source notes, research synthesis, and design references.
+- [docs/](docs/design-spec.md) contains project-level design notes.
+- [scripts/](scripts/) contains generation utilities used for earlier visual exploration.
 
-## Current Live Entry
+## Live Site
 
-The GitHub Pages entry currently redirects to:
+The GitHub Pages entry is [index.html](index.html), a static landing page for this teaching hub.
+
+The current slide deck still lives at:
 
 [sessions/skills-for-ds/slides/skills-for-ds.html](sessions/skills-for-ds/slides/skills-for-ds.html)
 
-The Codex onboarding package is markdown-first and lives at:
-
-[sessions/codex-onboarding/README.md](sessions/codex-onboarding/README.md)
-
-## Codex Onboarding Framing
+## Codex Framing
 
 > Start with a workflow. End with a receipt.
 
-Use the Codex package to teach:
-
-- Codex App setup and mental model;
-- workflow routing across RovoDev CLI, Cursor App, Codex App, and Codex CLI;
-- live workshop facilitation;
-- artifact and receipt generation;
-- skill management across tools;
-- advanced Codex topics from saved X bookmarks.
-
-The package includes markdown articles, SVG/PNG visuals, and saved image-generation prompts.
+Use the Codex package to teach workflow routing across RovoDev CLI, Cursor App, Codex App, and Codex CLI; then show how Codex turns work into visible artifacts, verification receipts, and teammate-readable handoff.

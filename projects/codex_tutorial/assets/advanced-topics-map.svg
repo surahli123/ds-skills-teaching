@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Advanced Codex Topics from X Bookmarks</title>
+  <desc id="desc">The deeper material to use after onboarding, not during the first setup walkthrough.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#102033" flood-opacity="0.14"/>
+    </filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7fafc"/>
+      <stop offset="100%" stop-color="#e8eef5"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="13" markerHeight="13" refX="10" refY="6.5" orient="auto">
+      <path d="M0,0 L13,6.5 L0,13 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="820" fill="url(#bg)"/>
+  <text x="64" y="72" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" fill="#0f172a">Advanced Codex Topics from X Bookmarks</text>
+  <text x="64" y="112" font-family="Inter, Arial, sans-serif" font-size="18" fill="#475569">The deeper material to use after onboarding, not during the first setup walkthrough.</text>
+  
+  <g filter="url(#shadow)">
+  <rect x="80" y="150" width="300" height="145" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="104" y="192" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Context + Token Hygiene</text>
+  <text x="104" y="226" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Limit noisy output</text>
+<text x="104" y="252" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Keep AGENTS.md focused</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="420" y="150" width="300" height="145" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="444" y="192" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Long-Running Goals</text>
+  <text x="444" y="226" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">/goal, progress ledgers</text>
+<text x="444" y="252" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Done_when + evidence</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="760" y="150" width="300" height="145" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="784" y="192" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Threads + Automations</text>
+  <text x="784" y="226" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Pulse threads</text>
+<text x="784" y="252" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Cross-thread handoff</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="1080" y="150" width="260" height="145" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="1104" y="192" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Peer Review</text>
+  <text x="1104" y="226" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Codex + Claude</text>
+<text x="1104" y="252" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Reviewer loops</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="160" y="420" width="300" height="145" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="184" y="462" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Artifacts</text>
+  <text x="184" y="496" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">HTML viewers</text>
+<text x="184" y="522" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Receipts</text>
+<text x="184" y="548" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Dashboards</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="520" y="420" width="300" height="145" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="544" y="462" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">MCP + Plugins</text>
+  <text x="544" y="496" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Approved tool access</text>
+<text x="544" y="522" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Policy caveats</text>
+</g>
+  <g filter="url(#shadow)">
+  <rect x="880" y="420" width="300" height="145" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="904" y="462" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Skill Optimization</text>
+  <text x="904" y="496" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">Memory -&gt; skill</text>
+<text x="904" y="522" font-family="Inter, Arial, sans-serif" font-size="17" fill="#334155">SkillOpt-style loops</text>
+</g>
+  <line x1="300" y1="295" x2="305" y2="410" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="570" y1="295" x2="570" y2="410" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="900" y1="295" x2="880" y2="410" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  
+</svg>

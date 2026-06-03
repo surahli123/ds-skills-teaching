@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Tutorial</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #526070;
+      --paper: #f8faf8;
+      --panel: #ffffff;
+      --line: #d8dedb;
+      --blue: #155e8b;
+      --green: #1f7a53;
+      --gold: #b56a25;
+      --shadow: 0 22px 64px rgba(17, 24, 39, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+      background:
+        linear-gradient(90deg, rgba(21, 94, 139, 0.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(21, 94, 139, 0.06) 1px, transparent 1px),
+        linear-gradient(135deg, #fbfaf7 0%, var(--paper) 55%, #edf5f1 100%);
+      background-size: 32px 32px, 32px 32px, auto;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 24px 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 54px 0 38px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(48px, 7vw, 92px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .lede {
+      margin: 22px 0 0;
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 900;
+      box-shadow: 5px 5px 0 rgba(17, 24, 39, 0.16);
+    }
+
+    .button.secondary {
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .hero-image {
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    .label {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 210px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--blue);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 14px 38px rgba(17, 24, 39, 0.08);
+    }
+
+    .card:nth-child(2) {
+      border-top-color: var(--green);
+    }
+
+    .card:nth-child(3) {
+      border-top-color: var(--gold);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-flex;
+      margin-top: 6px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    footer {
+      padding: 36px 0 48px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    @media (max-width: 920px) {
+      header,
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <div class="brand">Codex Tutorial</div>
+    <nav aria-label="Primary navigation">
+      <a href="README.md">README</a>
+      <a href="docs/02-live-workshop-script.md">Workshop</a>
+      <a href="docs/03-live-demo-workflow-receipt.md">Demo</a>
+      <a href="docs/04-facilitator-runbook.md">Runbook</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div>
+        <h1>Start with a workflow. End with a receipt.</h1>
+        <p class="lede">A standalone tutorial for onboarding people to Codex App and Codex CLI through setup, workflow routing, live demos, artifacts, verification receipts, and handoff.</p>
+        <div class="actions">
+          <a class="button" href="docs/02-live-workshop-script.md">Open Workshop Script</a>
+          <a class="button secondary" href="docs/03-live-demo-workflow-receipt.md">Open Live Demo</a>
+        </div>
+      </div>
+      <figure class="hero-image">
+        <img src="assets/before-after-workflow.png" alt="Before and after workflow with evidence">
+      </figure>
+    </section>
+
+    <section class="shell">
+      <p class="label">Tutorial Path</p>
+      <div class="grid">
+        <article class="card">
+          <h2>Codex 101</h2>
+          <p>Threads, tools, plugins, MCP, skills, artifacts, and receipts.</p>
+          <a href="docs/01-codex-101-general.md">Read first</a>
+        </article>
+        <article class="card">
+          <h2>Live Workshop</h2>
+          <p>A facilitator-ready session script for teaching Codex as a workflow surface.</p>
+          <a href="docs/02-live-workshop-script.md">Run the session</a>
+        </article>
+        <article class="card">
+          <h2>Demo Receipt</h2>
+          <p>A concrete workflow migration demo with worksheet, claim ledger, receipt, and handoff.</p>
+          <a href="docs/03-live-demo-workflow-receipt.md">Use the demo</a>
+        </article>
+        <article class="card">
+          <h2>Tool Routing</h2>
+          <p>Compare RovoDev CLI, Cursor App, Codex App, and Codex CLI without flattening their strengths.</p>
+          <a href="docs/05-tool-surface-comparison.md">Compare surfaces</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>Teach Codex as workflow infrastructure, not another chat box.</span>
+    <span><a href="README.md">README</a> | <a href="imagegen-prompts/">Image prompts</a> | <a href="references/source-notes/">Source notes</a></span>
+  </footer>
+</body>
+</html>

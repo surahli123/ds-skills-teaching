@@ -1,5 +1,331 @@
 <!DOCTYPE html>
-<html>
-<head><meta http-equiv="refresh" content="0;url=sessions/skills-for-ds/slides/skills-for-ds.html"><title>Redirecting...</title></head>
-<body><a href="sessions/skills-for-ds/slides/skills-for-ds.html">Skills for Data Scientists</a></body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DS Agent Teaching Materials</title>
+  <style>
+    :root {
+      --ink: #101820;
+      --muted: #526070;
+      --paper: #f7f4ef;
+      --panel: #ffffff;
+      --line: #d8dedb;
+      --blue: #175d8f;
+      --green: #28784f;
+      --gold: #b56a25;
+      --shadow: 0 24px 70px rgba(16, 24, 32, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(23, 93, 143, 0.10), transparent 34%),
+        linear-gradient(135deg, #fbfaf7 0%, var(--paper) 54%, #edf4f1 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--ink);
+      display: grid;
+      place-items: center;
+      background: #fff;
+      box-shadow: 5px 5px 0 rgba(23, 93, 143, 0.22);
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 46px 0 34px;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(44px, 6vw, 84px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .lede {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.55;
+      max-width: 620px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 5px 5px 0 rgba(16, 24, 32, 0.16);
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .hero-image {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 10px;
+      transform: rotate(0.4deg);
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    .section-label {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      min-height: 260px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--blue);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 14px 40px rgba(16, 24, 32, 0.08);
+    }
+
+    .card:nth-child(2) {
+      border-top-color: var(--gold);
+    }
+
+    .card:nth-child(3) {
+      border-top-color: var(--green);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 25px;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card a,
+    .card .soon {
+      display: inline-flex;
+      margin-top: 10px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .soon {
+      color: var(--muted);
+    }
+
+    .paths {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .path {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 18px;
+    }
+
+    .path strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .path span {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 860px) {
+      header,
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .hero,
+      .cards,
+      .paths {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <div class="brand">
+      <div class="brand-mark">DS</div>
+      <span>Agent Teaching Materials</span>
+    </div>
+    <nav aria-label="Primary navigation">
+      <a href="sessions/skills-for-ds/README.md">Skills</a>
+      <a href="sessions/codex-onboarding/README.md">Codex</a>
+      <a href="references/README.md">References</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div>
+        <h1>Teach agents as workflows.</h1>
+        <p class="lede">A practical curriculum for data scientists learning skills, subagents, Codex, artifacts, receipts, and handoff.</p>
+        <div class="hero-actions">
+          <a class="button" href="sessions/skills-for-ds/slides/skills-for-ds.html">Open Slide Deck</a>
+          <a class="button secondary" href="sessions/codex-onboarding/README.md">Open Codex Onboarding</a>
+        </div>
+      </div>
+      <figure class="hero-image">
+        <img src="assets/landing/ds-agent-teaching-hub.png" alt="DS Agent Teaching Hub learning tracks: Skills, Subagents, and Codex">
+      </figure>
+    </section>
+
+    <section class="shell" id="sessions">
+      <p class="section-label">Sessions</p>
+      <div class="cards">
+        <article class="card">
+          <h2>Skills for DS</h2>
+          <p>Reusable workflow knowledge for teams that keep re-explaining prompts, context, metric rules, and report formats.</p>
+          <a href="sessions/skills-for-ds/README.md">Start with skills</a>
+        </article>
+        <article class="card">
+          <h2>Subagents for DS</h2>
+          <p>Parallel review, delegation, and multi-perspective analysis. This track is planned as the next repo import.</p>
+          <span class="soon">Coming next</span>
+        </article>
+        <article class="card">
+          <h2>Codex Onboarding</h2>
+          <p>Codex App and CLI setup, workflow routing, live workshop facilitation, artifacts, receipts, and handoff.</p>
+          <a href="sessions/codex-onboarding/README.md">Open Codex track</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell">
+      <p class="section-label">Recommended Paths</p>
+      <div class="paths">
+        <div class="path">
+          <strong>New to agent workflows</strong>
+          <span>Skills for DS -> Subagents for DS -> Codex onboarding</span>
+        </div>
+        <div class="path">
+          <strong>Preparing the Codex offsite</strong>
+          <span>Codex onboarding -> Skills for DS</span>
+        </div>
+        <div class="path">
+          <strong>Building repeatable DS workflows</strong>
+          <span>Skills for DS -> Codex onboarding -> Subagents for DS</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>Start with a workflow. End with a receipt.</span>
+    <span><a href="README.md">README</a> | <a href="sessions/README.md">Sessions</a> | <a href="references/README.md">References</a></span>
+  </footer>
+</body>
 </html>
